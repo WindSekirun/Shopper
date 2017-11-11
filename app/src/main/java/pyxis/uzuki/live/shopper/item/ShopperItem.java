@@ -76,39 +76,4 @@ public class ShopperItem extends SugarRecord {
         this.state = state;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        ShopperItem that = (ShopperItem) o;
-
-        if (createdAt != that.createdAt) return false;
-        if (count != that.count) return false;
-        if (Float.compare(that.price, price) != 0) return false;
-        if (state != that.state) return false;
-        return name != null ? name.equals(that.name) : that.name == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = name != null ? name.hashCode() : 0;
-        result = 31 * result + (int) (createdAt ^ (createdAt >>> 32));
-        result = 31 * result + count;
-        result = 31 * result + (price != +0.0f ? Float.floatToIntBits(price) : 0);
-        result = 31 * result + state;
-        return result;
-    }
-
-
-    @Override
-    public String toString() {
-        return "ShopperItem{" +
-                "name='" + name + '\'' +
-                ", createdAt=" + createdAt +
-                ", count=" + count +
-                ", price=" + price +
-                ", state=" + state +
-                '}';
-    }
 }
