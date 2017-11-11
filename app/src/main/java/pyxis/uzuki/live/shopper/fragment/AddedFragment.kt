@@ -110,6 +110,7 @@ class AddedFragment : Fragment() {
         if (isVisibleToUser) {
             getData()
         }
+
         super.setUserVisibleHint(isVisibleToUser)
     }
 }

@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.fragment_add.*
 import pyxis.uzuki.live.richutilskt.utils.hideKeyboard
 import pyxis.uzuki.live.richutilskt.utils.inflate
 import pyxis.uzuki.live.richutilskt.utils.isEmpty
+import pyxis.uzuki.live.richutilskt.utils.toast
 import pyxis.uzuki.live.shopper.Constants.CLICK_EDIT
 import pyxis.uzuki.live.shopper.Constants.DIALOG_DELTE
 import pyxis.uzuki.live.shopper.Constants.STATE_NOT_ADDED
@@ -19,7 +20,6 @@ import pyxis.uzuki.live.shopper.adapter.ShopperItemListAdapter
 import pyxis.uzuki.live.shopper.dialog.ShopperBuyDialog
 import pyxis.uzuki.live.shopper.dialog.ShopperEditDialog
 import pyxis.uzuki.live.shopper.item.ShopperItem
-import pyxis.uzuki.live.shopper.snackBar
 
 /**
  * Shopper
@@ -58,7 +58,7 @@ class AddFragment : Fragment() {
 
         editItem.setOnEditorActionListener { view, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                addShopperItem(view)
+                addShopperItem()
                 true
             } else {
                 false
@@ -74,13 +74,14 @@ class AddFragment : Fragment() {
         val list = items.filter { it.state == STATE_NOT_ADDED }
         itemList.addAll(list)
         adapter.notifyDataSetChanged()
+
+        activity.hideKeyboard()
     }
 
-    private fun addShopperItem(view: View) {
-        activity.hideKeyboard()
+    private fun addShopperItem() {
         val text = editItem.text.toString()
         if (text.isEmpty() || text.trim().isEmpty()) {
-            view.snackBar(R.string.enter_item_name)
+            activity.toast(R.string.enter_item_name)
             return
         }
 
@@ -95,7 +96,6 @@ class AddFragment : Fragment() {
     private fun clickEditButton(shopperItem: ShopperItem) {
         val dialog = ShopperEditDialog(activity)
         dialog.show(shopperItem, { code, item ->
-            activity.hideKeyboard()
             if (code == DIALOG_DELTE) {
                 item.delete()
                 getData()
@@ -110,7 +110,6 @@ class AddFragment : Fragment() {
     private fun clickList(shopperItem: ShopperItem) {
         val dialog = ShopperBuyDialog(activity)
         dialog.show(shopperItem, { _, item ->
-            activity.hideKeyboard()
             item.save()
             getData()
         })

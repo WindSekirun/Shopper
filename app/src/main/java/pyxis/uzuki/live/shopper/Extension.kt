@@ -27,15 +27,7 @@ object Constants {
     @JvmField val DIALOG_BUY = 1
 }
 
-fun View.snackBar(msg: String, length: Int = Snackbar.LENGTH_SHORT) {
-    Snackbar.make(this, msg, length)
-}
-
-fun View.snackBar(msg: Int, length: Int = Snackbar.LENGTH_SHORT) {
-    snackBar(this.resources.getString(msg), length)
-}
-
-fun Context.getCurrentLocale() = if (Build.VERSION.SDK_INT >= 24) {
+fun Context.getCurrentLocale(): Locale? = if (Build.VERSION.SDK_INT >= 24) {
     this.resources.configuration.locales[0]
 } else {
     this.resources.configuration.locale

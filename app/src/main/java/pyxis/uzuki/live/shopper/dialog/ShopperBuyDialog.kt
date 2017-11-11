@@ -28,16 +28,14 @@ class ShopperBuyDialog(context: Context) : BaseDialog(context) {
     fun show(item: ShopperItem, callback: (Int, ShopperItem) -> Unit) {
         super.show()
 
-        item.let {
-            txtName.text = context.getString(R.string.dialog_enter_item_name).format(item.name)
+        txtName.text = context.getString(R.string.dialog_enter_item_name).format(item.name)
 
-            if (item.price != 0.0f) {
-                editPrice.setText(item.price.toString())
-            }
+        if (item.price != 0.0f) {
+            editPrice.setText(item.price.toString())
+        }
 
-            if (item.count != 0) {
-                editCount.setText(item.count.toString())
-            }
+        if (item.count != 0) {
+            editCount.setText(item.count.toString())
         }
 
         btnClose.setOnClickListener { dismiss() }
@@ -52,6 +50,7 @@ class ShopperBuyDialog(context: Context) : BaseDialog(context) {
                     item.price = item.price * item.count
             } catch (e: Exception) {
                 context.toast(context.getString(R.string.dialog_buy_not_valid))
+                return@setOnClickListener
             }
 
             item.state = STATE_ADDED
