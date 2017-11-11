@@ -1,6 +1,6 @@
 package pyxis.uzuki.live.shopper.item
 
-import com.orm.SugarRecord
+import io.realm.RealmObject
 
 /**
  * Shopper
@@ -10,16 +10,12 @@ import com.orm.SugarRecord
  * Description:
  */
 
-class ShopperItem : SugarRecord {
+open class ShopperItem : RealmObject() {
     var name: String = ""
     var createdAt: Long = 0L
     var count: Int = 0
     var price: Float = 0.0f
     var state = 0
-
-    constructor(name: String) : super() {
-        this.name = name
-    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -48,6 +44,5 @@ class ShopperItem : SugarRecord {
     override fun toString(): String {
         return "ShopperItem(name='$name', createdAt=$createdAt, count=$count, price=$price, state=$state)"
     }
-
 
 }
