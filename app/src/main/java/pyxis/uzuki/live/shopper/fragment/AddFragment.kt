@@ -1,27 +1,21 @@
 package pyxis.uzuki.live.shopper.fragment
 
-import android.app.Fragment
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.inflate
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import com.vicpin.krealmextensions.delete
-import com.vicpin.krealmextensions.queryAll
-import com.vicpin.krealmextensions.save
 import kotlinx.android.synthetic.main.fragment_add.*
-import kotlinx.android.synthetic.main.fragment_list_item.*
+import pyxis.uzuki.live.richutilskt.utils.hideKeyboard
+import pyxis.uzuki.live.richutilskt.utils.inflate
 import pyxis.uzuki.live.richutilskt.utils.isEmpty
-import pyxis.uzuki.live.shopper.Constants
-import pyxis.uzuki.live.shopper.R
+import pyxis.uzuki.live.shopper.*
 import pyxis.uzuki.live.shopper.adapter.ShopperItemListAdapter
 import pyxis.uzuki.live.shopper.dialog.ShopperBuyDialog
 import pyxis.uzuki.live.shopper.dialog.ShopperEditDialog
-import pyxis.uzuki.live.shopper.getShopper
 import pyxis.uzuki.live.shopper.item.ShopperItem
-import pyxis.uzuki.live.shopper.snackBar
 
 /**
  * Shopper
@@ -38,7 +32,7 @@ class AddFragment : Fragment() {
     val itemList = arrayListOf<ShopperItem>()
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return inflate(activity, R.layout.fragment_add, container)
+        return activity.inflate(R.layout.fragment_add, container)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
@@ -68,17 +62,18 @@ class AddFragment : Fragment() {
                 false
             }
         }
-
-        btnEdit.setOnClickListener { addShopperItem(it) }
     }
 
     private fun getData() {
-        val items = ShopperItem().queryAll()
+        itemList.clear()
+        adapter.notifyDataSetChanged()
+
+        val items = ShopperItem.listAll(ShopperItem::class.java)
         if (items.isEmpty())
             return
 
-        itemList.clear()
-        itemList.addAll(items.filter { it.state == Constants.STATE_NOT_ADDED })
+        val list = items.filter { it.state == Constants.STATE_NOT_ADDED }
+        itemList.addAll(list)
         adapter.notifyDataSetChanged()
     }
 
@@ -88,7 +83,11 @@ class AddFragment : Fragment() {
             view.snackBar(R.string.enter_item_name)
         }
 
-        getShopper(text).save()
+        val item = ShopperItem(text)
+        item.save()
+
+        activity.hideKeyboard()
+        editItem.setText("")
         getData()
     }
 
@@ -96,7 +95,7 @@ class AddFragment : Fragment() {
         val dialog = ShopperEditDialog(activity)
         dialog.show(shopperItem, { code, item ->
             if (code == Constants.DIALOG_DELTE) {
-                ShopperItem().delete { it -> it.equalTo("id", shopperItem.id) }
+                item.delete()
                 getData()
                 return@show
             }

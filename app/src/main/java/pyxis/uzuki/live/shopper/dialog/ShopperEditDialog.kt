@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Bundle
 import kotlinx.android.synthetic.main.dialog_edit.*
 import kotlinx.android.synthetic.main.fragment_add.*
-import kotlinx.android.synthetic.main.fragment_list_item.*
 import pyxis.uzuki.live.richutilskt.utils.isEmpty
 import pyxis.uzuki.live.richutilskt.utils.toast
 import pyxis.uzuki.live.shopper.Constants
@@ -41,8 +40,8 @@ class ShopperEditDialog(context: Context) : BaseDialog(context) {
             dismiss()
         }
 
-        btnEdit.setOnClickListener {
-            val text = editItem.text.toString()
+        btnDone.setOnClickListener {
+            val text = editName.text.toString()
             if (text.isEmpty()) {
                 context.toast(R.string.enter_item_name)
                 return@setOnClickListener

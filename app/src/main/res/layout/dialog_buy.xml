@@ -7,117 +7,116 @@
     android:paddingLeft="30dp"
     android:paddingRight="30dp">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-
-        <!-- 타이틀 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#fff"
-            android:gravity="center_horizontal"
+            android:layout_gravity="center"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:background="@color/colorPrimary"
-                android:gravity="center"
-                android:text="@string/dialog_enter_title"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:visibility="visible" />
-        </LinearLayout>
 
-        <!-- 내용 -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="140dp"
-            android:background="@color/white"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp">
-
-            <TextView
-                android:id="@+id/txtName"
+            <!-- 타이틀 -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#fff"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:background="@color/colorPrimary"
+                    android:gravity="center"
+                    android:text="@string/dialog_enter_title"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:visibility="visible" />
+            </LinearLayout>
+
+            <!-- 내용 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:background="@color/white"
                 android:gravity="center"
-                android:text="@string/dialog_enter_item_name"
-                android:textColor="@color/textPrimary" />
+                android:orientation="vertical"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
 
-           <LinearLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/txtName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/dialog_enter_item_name"
+                    android:textColor="@color/textPrimary" />
 
-               <android.support.design.widget.TextInputLayout
-                   android:id="@+id/inputCount"
-                   android:layout_width="0dp"
-                   android:layout_weight="1"
-                   android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
 
-                   <EditText
-                       android:id="@+id/editCount"
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:textSize="15sp"
-                       android:textColor="@color/textPrimary"
-                       android:inputType="number"
-                       android:hint="@string/dialog_enter_item_count" />
-               </android.support.design.widget.TextInputLayout>
+                    <EditText
+                        android:id="@+id/editCount"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_background"
+                        android:hint="@string/dialog_enter_item_count"
+                        android:inputType="number"
+                        android:textColor="@color/textPrimary"
+                        android:textColorHint="@color/textSecondary"
+                        android:textSize="15sp" />
 
-               <android.support.design.widget.TextInputLayout
-                   android:id="@+id/inputPrice"
-                   android:layout_width="0dp"
-                   android:layout_weight="1"
-                   android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/editPrice"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_background"
+                        android:hint="@string/dialog_enter_price"
+                        android:inputType="numberDecimal"
+                        android:textColor="@color/textPrimary"
+                        android:textColorHint="@color/textSecondary"
+                        android:textSize="15sp" />
 
-                   <EditText
-                       android:id="@+id/editPrice"
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:textSize="15sp"
-                       android:textColor="@color/textPrimary"
-                       android:inputType="numberDecimal"
-                       android:hint="@string/dialog_enter_price" />
-               </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
 
-           </LinearLayout>
+            </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/btnClose"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/textSecondary"
+                    android:gravity="center"
+                    android:text="@string/close"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/btnDone"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/colorPrimary"
+                    android:gravity="center"
+                    android:text="@string/done"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+            </LinearLayout>
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/btnClose"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/textSecondary"
-                android:gravity="center"
-                android:text="@string/close"
-                android:textColor="@color/white"
-                android:textSize="15sp" />
-
-            <TextView
-                android:id="@+id/btnDone"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/colorPrimary"
-                android:gravity="center"
-                android:text="@string/done"
-                android:textColor="@color/white"
-                android:textSize="15sp" />
-        </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
 </LinearLayout>

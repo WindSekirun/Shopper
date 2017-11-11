@@ -34,7 +34,7 @@ class ShopperBuyDialog(context: Context) : BaseDialog(context) {
         btnClose.setOnClickListener { dismiss() }
         btnDone.setOnClickListener {
             val count = editCount.text.toString().trim()
-            val price = editCount.text.toString().trim()
+            val price = editPrice.text.toString().trim()
 
             try {
                 item.count = count.toInt()
