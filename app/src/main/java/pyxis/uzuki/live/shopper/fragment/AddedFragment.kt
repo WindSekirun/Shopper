@@ -7,31 +7,32 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import kotlinx.android.synthetic.main.fragment_add.*
+import kotlinx.android.synthetic.main.fragment_added.*
 import pyxis.uzuki.live.richutilskt.utils.hideKeyboard
 import pyxis.uzuki.live.richutilskt.utils.inflate
-import pyxis.uzuki.live.richutilskt.utils.isEmpty
-import pyxis.uzuki.live.shopper.*
+import pyxis.uzuki.live.shopper.Constants
+import pyxis.uzuki.live.shopper.R
 import pyxis.uzuki.live.shopper.adapter.ShopperItemListAdapter
 import pyxis.uzuki.live.shopper.dialog.ShopperBuyDialog
 import pyxis.uzuki.live.shopper.dialog.ShopperEditDialog
+import pyxis.uzuki.live.shopper.formatCurrency
 import pyxis.uzuki.live.shopper.item.ShopperItem
 
 /**
  * Shopper
- * Class: AddFragment
+ * Class: AddedFragment
  * Created by pyxis on 11/11/2017.
  *
  * Description:
  */
 
-class AddFragment : Fragment() {
+class AddedFragment : Fragment() {
 
     lateinit var adapter: ShopperItemListAdapter
     val itemList = arrayListOf<ShopperItem>()
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return activity.inflate(R.layout.fragment_add, container)
+        return activity.inflate(R.layout.fragment_added, container)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
@@ -53,14 +54,6 @@ class AddFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.adapter = adapter
 
-        editItem.setOnEditorActionListener { view, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                addShopperItem(view)
-                true
-            } else {
-                false
-            }
-        }
     }
 
     private fun getData() {
@@ -71,25 +64,19 @@ class AddFragment : Fragment() {
         if (items.isEmpty())
             return
 
-        val list = items.filter { it.state == Constants.STATE_NOT_ADDED }
+        val list = items.filter { it.state == Constants.STATE_ADDED }
         itemList.addAll(list)
         adapter.notifyDataSetChanged()
-    }
 
-    private fun addShopperItem(view: View) {
-        activity.hideKeyboard()
-        val text = editItem.text.toString()
-        if (text.isEmpty() || text.trim().isEmpty()) {
-            view.snackBar(R.string.enter_item_name)
-            return
+        var price = 0.0f
+        var count = 0
+
+        items.forEach {
+            price += it.price
+            count += it.count
         }
 
-
-        val item = ShopperItem(text)
-        item.save()
-
-        editItem.setText("")
-        getData()
+        txtTotal.text = getString(R.string.total_formatted).format(count, price.formatCurrency(activity))
     }
 
     private fun clickEditButton(shopperItem: ShopperItem) {

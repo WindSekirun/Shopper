@@ -19,7 +19,7 @@ class ShopperItemListAdapter(val context: Context, val itemList: List<ShopperIte
     : RecyclerView.Adapter<ShopperItemViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ShopperItemViewHolder =
-            ShopperItemViewHolder(context.inflate(R.layout.fragment_list_item, parent), callback)
+            ShopperItemViewHolder(context, context.inflate(R.layout.fragment_list_item, parent), callback)
 
     override fun onBindViewHolder(holder: ShopperItemViewHolder?, position: Int) {
         holder?.bindItem(itemList[position])

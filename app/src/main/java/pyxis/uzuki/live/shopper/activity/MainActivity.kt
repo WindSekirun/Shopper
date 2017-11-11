@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import pyxis.uzuki.live.shopper.R
 import pyxis.uzuki.live.shopper.fragment.AddFragment
+import pyxis.uzuki.live.shopper.fragment.AddedFragment
 
 
 /**
@@ -32,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 
         val adapter = ViewPagerAdapter(supportFragmentManager)
         adapter.addFragment(AddFragment(), getString(R.string.main_tab_1))
-        adapter.addFragment(AddFragment(), getString(R.string.main_tab_2))
+        adapter.addFragment(AddedFragment(), getString(R.string.main_tab_2))
         adapter.addFragment(AddFragment(), getString(R.string.main_tab_3))
         viewPager.adapter = adapter
 
