@@ -15,4 +15,8 @@ public interface Constants {
 
     int CLICK_EDIT = 2;
     int CLICK_LIST = 1;
+
+    int DIALOG_DELTE = -1;
+    int DIALOG_EDIT = 1;
+    int DIALOG_BUY = 1;
 }

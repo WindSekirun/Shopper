@@ -23,5 +23,7 @@ fun View.snackBar(msg: Int, length: Int = Snackbar.LENGTH_SHORT) {
 fun shopper(itemName: String): ShopperItem {
     return ShopperItem().apply {
         name = itemName
+        createdAt = System.currentTimeMillis()
+        state = Constants.STATE_NOT_ADDED
     }
 }
