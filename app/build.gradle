@@ -34,13 +34,9 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:26.1.0'
     implementation 'com.android.support:design:26.1.0'
 
-    // RichUtils & NyanCat & PyxInjector
+    // RichUtils
     implementation 'com.github.WindSekirun:RichUtilsKt:1.8.0'
-    implementation 'com.github.WindSekirun:NyanCat:0.3.0'
-    implementation 'com.github.WindSekirun:PyxInjector:1.1.5'
 
-    // calendar
-    compile 'com.github.jhonnyx2012:horizontal-picker:1.0.6'
-
-    compile 'com.github.satyan:sugar:1.5'
+    // ORM
+    implementation 'com.github.satyan:sugar:1.5'
 }
