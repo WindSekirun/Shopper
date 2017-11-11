@@ -20,7 +20,7 @@ fun View.snackBar(msg: Int, length: Int = Snackbar.LENGTH_SHORT) {
     snackBar(this.resources.getString(msg), length)
 }
 
-fun shopper(itemName: String): ShopperItem {
+fun getShopper(itemName: String): ShopperItem {
     return ShopperItem().apply {
         name = itemName
         createdAt = System.currentTimeMillis()

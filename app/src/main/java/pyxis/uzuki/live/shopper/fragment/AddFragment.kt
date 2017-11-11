@@ -8,6 +8,7 @@ import android.view.View
 import android.view.View.inflate
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import com.vicpin.krealmextensions.delete
 import com.vicpin.krealmextensions.queryAll
 import com.vicpin.krealmextensions.save
 import kotlinx.android.synthetic.main.fragment_add.*
@@ -16,8 +17,10 @@ import pyxis.uzuki.live.richutilskt.utils.isEmpty
 import pyxis.uzuki.live.shopper.Constants
 import pyxis.uzuki.live.shopper.R
 import pyxis.uzuki.live.shopper.adapter.ShopperItemListAdapter
+import pyxis.uzuki.live.shopper.dialog.ShopperBuyDialog
+import pyxis.uzuki.live.shopper.dialog.ShopperEditDialog
+import pyxis.uzuki.live.shopper.getShopper
 import pyxis.uzuki.live.shopper.item.ShopperItem
-import pyxis.uzuki.live.shopper.shopper
 import pyxis.uzuki.live.shopper.snackBar
 
 /**
@@ -47,7 +50,11 @@ class AddFragment : Fragment() {
 
     private fun initView() {
         adapter = ShopperItemListAdapter(activity, itemList, { code, item ->
-
+            if (code == Constants.CLICK_EDIT) {
+                clickEditButton(item)
+            } else {
+                clickList(item)
+            }
         })
 
         recyclerView.layoutManager = LinearLayoutManager(activity)
@@ -70,6 +77,7 @@ class AddFragment : Fragment() {
         if (items.isEmpty())
             return
 
+        itemList.clear()
         itemList.addAll(items.filter { it.state == Constants.STATE_NOT_ADDED })
         adapter.notifyDataSetChanged()
     }
@@ -80,7 +88,29 @@ class AddFragment : Fragment() {
             view.snackBar(R.string.enter_item_name)
         }
 
-        shopper(text).save()
+        getShopper(text).save()
         getData()
+    }
+
+    private fun clickEditButton(shopperItem: ShopperItem) {
+        val dialog = ShopperEditDialog(activity)
+        dialog.show(shopperItem, { code, item ->
+            if (code == Constants.DIALOG_DELTE) {
+                ShopperItem().delete { it -> it.equalTo("id", shopperItem.id) }
+                getData()
+                return@show
+            }
+
+            item.save()
+            getData()
+        })
+    }
+
+    private fun clickList(shopperItem: ShopperItem) {
+        val dialog = ShopperBuyDialog(activity)
+        dialog.show(shopperItem, { _, item ->
+            item.save()
+            getData()
+        })
     }
 }
