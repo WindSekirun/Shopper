@@ -3,10 +3,10 @@ package pyxis.uzuki.live.shopper.dialog
 import android.content.Context
 import android.os.Bundle
 import kotlinx.android.synthetic.main.dialog_edit.*
-import kotlinx.android.synthetic.main.fragment_add.*
 import pyxis.uzuki.live.richutilskt.utils.isEmpty
 import pyxis.uzuki.live.richutilskt.utils.toast
-import pyxis.uzuki.live.shopper.Constants
+import pyxis.uzuki.live.shopper.Constants.DIALOG_DELTE
+import pyxis.uzuki.live.shopper.Constants.DIALOG_EDIT
 import pyxis.uzuki.live.shopper.R
 import pyxis.uzuki.live.shopper.item.ShopperItem
 
@@ -36,7 +36,7 @@ class ShopperEditDialog(context: Context) : BaseDialog(context) {
         btnClose.setOnClickListener { dismiss() }
 
         btnDelete.setOnClickListener {
-            callback(Constants.DIALOG_DELTE, item)
+            callback(DIALOG_DELTE, item)
             dismiss()
         }
 
@@ -49,7 +49,7 @@ class ShopperEditDialog(context: Context) : BaseDialog(context) {
 
             item.name = text
 
-            callback(Constants.DIALOG_EDIT, item)
+            callback(DIALOG_EDIT, item)
             dismiss()
         }
     }

@@ -11,11 +11,15 @@ import kotlinx.android.synthetic.main.fragment_add.*
 import pyxis.uzuki.live.richutilskt.utils.hideKeyboard
 import pyxis.uzuki.live.richutilskt.utils.inflate
 import pyxis.uzuki.live.richutilskt.utils.isEmpty
-import pyxis.uzuki.live.shopper.*
+import pyxis.uzuki.live.shopper.Constants.CLICK_EDIT
+import pyxis.uzuki.live.shopper.Constants.DIALOG_DELTE
+import pyxis.uzuki.live.shopper.Constants.STATE_NOT_ADDED
+import pyxis.uzuki.live.shopper.R
 import pyxis.uzuki.live.shopper.adapter.ShopperItemListAdapter
 import pyxis.uzuki.live.shopper.dialog.ShopperBuyDialog
 import pyxis.uzuki.live.shopper.dialog.ShopperEditDialog
 import pyxis.uzuki.live.shopper.item.ShopperItem
+import pyxis.uzuki.live.shopper.snackBar
 
 /**
  * Shopper
@@ -26,9 +30,8 @@ import pyxis.uzuki.live.shopper.item.ShopperItem
  */
 
 class AddFragment : Fragment() {
-
-    lateinit var adapter: ShopperItemListAdapter
-    val itemList = arrayListOf<ShopperItem>()
+    private lateinit var adapter: ShopperItemListAdapter
+    private val itemList = arrayListOf<ShopperItem>()
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return activity.inflate(R.layout.fragment_add, container)
@@ -43,7 +46,7 @@ class AddFragment : Fragment() {
 
     private fun initView() {
         adapter = ShopperItemListAdapter(activity, itemList, { code, item ->
-            if (code == Constants.CLICK_EDIT) {
+            if (code == CLICK_EDIT) {
                 clickEditButton(item)
             } else {
                 clickList(item)
@@ -68,10 +71,7 @@ class AddFragment : Fragment() {
         adapter.notifyDataSetChanged()
 
         val items = ShopperItem.listAll(ShopperItem::class.java)
-        if (items.isEmpty())
-            return
-
-        val list = items.filter { it.state == Constants.STATE_NOT_ADDED }
+        val list = items.filter { it.state == STATE_NOT_ADDED }
         itemList.addAll(list)
         adapter.notifyDataSetChanged()
     }
@@ -96,7 +96,7 @@ class AddFragment : Fragment() {
         val dialog = ShopperEditDialog(activity)
         dialog.show(shopperItem, { code, item ->
             activity.hideKeyboard()
-            if (code == Constants.DIALOG_DELTE) {
+            if (code == DIALOG_DELTE) {
                 item.delete()
                 getData()
                 return@show

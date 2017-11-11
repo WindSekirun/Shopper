@@ -34,7 +34,6 @@ class MainActivity : AppCompatActivity() {
         val adapter = ViewPagerAdapter(supportFragmentManager)
         adapter.addFragment(AddFragment(), getString(R.string.main_tab_1))
         adapter.addFragment(AddedFragment(), getString(R.string.main_tab_2))
-        adapter.addFragment(AddFragment(), getString(R.string.main_tab_3))
         viewPager.adapter = adapter
 
         tabLayout.setupWithViewPager(viewPager)

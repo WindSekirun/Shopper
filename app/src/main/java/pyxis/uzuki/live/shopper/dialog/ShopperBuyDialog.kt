@@ -4,8 +4,9 @@ import android.content.Context
 import android.os.Bundle
 import kotlinx.android.synthetic.main.dialog_buy.*
 import pyxis.uzuki.live.richutilskt.utils.toast
-import pyxis.uzuki.live.shopper.Constants
+import pyxis.uzuki.live.shopper.Constants.DIALOG_BUY
 import pyxis.uzuki.live.shopper.R
+import pyxis.uzuki.live.shopper.Constants.STATE_ADDED
 import pyxis.uzuki.live.shopper.item.ShopperItem
 import java.lang.Exception
 
@@ -29,6 +30,14 @@ class ShopperBuyDialog(context: Context) : BaseDialog(context) {
 
         item.let {
             txtName.text = context.getString(R.string.dialog_enter_item_name).format(item.name)
+
+            if (item.price != 0.0f) {
+                editPrice.setText(item.price.toString())
+            }
+
+            if (item.count != 0) {
+                editCount.setText(item.count.toString())
+            }
         }
 
         btnClose.setOnClickListener { dismiss() }
@@ -39,12 +48,14 @@ class ShopperBuyDialog(context: Context) : BaseDialog(context) {
             try {
                 item.count = count.toInt()
                 item.price = price.toFloat()
+                if (item.count != 0)
+                    item.price = item.price * item.count
             } catch (e: Exception) {
                 context.toast(context.getString(R.string.dialog_buy_not_valid))
             }
 
-            item.state = Constants.STATE_ADDED
-            callback(Constants.DIALOG_BUY, item)
+            item.state = STATE_ADDED
+            callback(DIALOG_BUY, item)
             dismiss()
         }
     }
