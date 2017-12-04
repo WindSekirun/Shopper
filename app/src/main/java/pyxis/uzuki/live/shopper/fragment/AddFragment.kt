@@ -3,6 +3,7 @@ package pyxis.uzuki.live.shopper.fragment
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -95,6 +96,12 @@ class AddFragment : Fragment() {
 
     private fun clickEditButton(shopperItem: ShopperItem) {
         val dialog = ShopperEditDialog(activity)
+        Log.e("AddedFragment", "shopperItem.count: %s".format(shopperItem.count))
+        Log.e("AddedFragment", "shopperItem.name: %s".format(shopperItem.name))
+        Log.e("AddedFragment", "shopperItem.state: %s".format(shopperItem.state))
+        Log.e("AddedFragment", "shopperItem.price: %s".format(shopperItem.price))
+        Log.e("AddedFragment", "shopperItem.createdAt: %s".format(shopperItem.createdAt))
+        Log.e("AddedFragment", "shopperItem.id: %s".format(shopperItem.id))
         dialog.show(shopperItem, { code, item ->
             if (code == DIALOG_DELTE) {
                 item.delete()

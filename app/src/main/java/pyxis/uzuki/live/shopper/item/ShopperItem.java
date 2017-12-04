@@ -1,7 +1,5 @@
 package pyxis.uzuki.live.shopper.item;
 
-import com.orm.SugarRecord;
-
 import static pyxis.uzuki.live.shopper.Constants.STATE_NOT_ADDED;
 
 /**
@@ -12,12 +10,12 @@ import static pyxis.uzuki.live.shopper.Constants.STATE_NOT_ADDED;
  * Description:
  */
 
-public class ShopperItem extends SugarRecord {
-     private String name;
-     private long createdAt;
-     private int count;
-     private float price;
-     private int state = STATE_NOT_ADDED;
+public class ShopperItem extends BaseItem {
+    private String name;
+
+    private int count;
+    private float price;
+    private int state = STATE_NOT_ADDED;
 
     public ShopperItem() {
 
@@ -28,9 +26,8 @@ public class ShopperItem extends SugarRecord {
         createdAt = System.currentTimeMillis();
     }
 
-    public ShopperItem(String name, long createdAt, int count, float price, int state) {
+    public ShopperItem(String name, int count, float price, int state) {
         this.name = name;
-        this.createdAt = createdAt;
         this.count = count;
         this.price = price;
         this.state = state;
@@ -42,14 +39,6 @@ public class ShopperItem extends SugarRecord {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public long getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(long createdAt) {
-        this.createdAt = createdAt;
     }
 
     public int getCount() {
